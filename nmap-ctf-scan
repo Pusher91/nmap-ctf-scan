@@ -1,0 +1,47 @@
+#!/bin/bash
+
+if [[ -z "$1" ]] ; then
+	printf "Usage: ./script <target>\n"
+	exit 1
+fi
+
+
+printf "Target: $1\n\n"
+
+# Check if ping-scan exists, if it does not, then do the scan.
+if [[ -f ./ping-scan ]]
+then
+	printf "Skipping -p- scan.  File ./ping-scan already exists.\n"
+else
+	ping_scan="sudo nmap $1 -p- -oN ping-scan --min-rate 1000\n"
+	printf "Scanning scan: $ping_scan\n" && $ping_scan
+	printf "Scan finished.\n"
+
+	open_ports=$(cat ./ping-scan | grep 'open' | awk -F "/" '{print $1}' ORS=",")
+	printf "Open ports: $open_ports\n\n"
+fi
+
+# Check if ping-scan exists, if it does, then do a script scan against open ports.
+if [[ -f ./ping-scan ]]
+then
+	if [[ -f ./script-scan ]]
+	then
+		printf "Skipping -sV -sC -p<open ports from ./ping-scan>.  The file ./script-scan already exists.\n"
+	else
+		script_scan="sudo nmap $1 -p$open_ports -sV -sC -oN script-scan"
+		printf "Running scan: $script_scan\n\n" && $script_scan
+		printf -- "-sV -sC again open ports finished.\n\n"
+	fi
+else
+	printf "Skipping -sV -sC scan.  ./ping-scan does not exist\n"
+fi
+
+# Do UDP scan
+if [[ -f ./udp-scan ]]
+then
+	printf "Skipping -sU scan.  The file ./udp-scan already exists."
+else
+	udp_scan="sudo nmap $1 -sU -oN udp-scan"
+	printf "Running UDP scan: $udp_scan" && $udp_scan
+	printf "UDP scan finished.\n\n"
+fi

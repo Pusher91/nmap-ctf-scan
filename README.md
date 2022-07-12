@@ -4,34 +4,32 @@ Simple nmap bash script to scan ctf boxes.
 
 
 ```console
-./script.sh <target>
-Target: (target)
+nmap-ctf-scan 10.129.223.201
+### Target: 10.129.223.201 ###
 
-Scanning scan: sudo nmap (target) -p- -oN ping-scan --min-rate 1000
+### Running scan: sudo nmap 10.129.223.201 -p- -oN ping-scan --min-rate 1000 ###
+Starting Nmap 7.92 ( https://nmap.org ) at 2022-07-12 08:48 CDT
 
-Starting Nmap 7.92 ( https://nmap.org ) at 2022-07-11 17:50 CDT
 (nmap scan output)
-Nmap done: 1 IP address (1 host up) scanned in 147.57 seconds
-Scan finished.
-Open ports: (list of open ports of ./ping-scan)
 
-Running scan: sudo nmap 10.129.223.201 -p(list of open ports of ./ping-scan) -sV -sC -oN script-scan
+Nmap done: 1 IP address (1 host up) scanned in 112.97 seconds
+### Scan finished. ###
+### Open ports: 53,80,88,135,139,389,445,464,593,636,1433,3268,3269,4411,5985,9389,49667,49673,49674,49700,49704,53138, ###
 
-Starting Nmap 7.92 ( https://nmap.org ) at 2022-07-11 17:53 CDT
+### Running scan: sudo nmap 10.129.223.201 -p53,80,88,135,139,389,445,464,593,636,1433,3268,3269,4411,5985,9389,49667,49673,49674,49700,49704,53138, -sV -sC -oN script-scan ###
+
+Starting Nmap 7.92 ( https://nmap.org ) at 2022-07-12 08:50 CDT
+
 (nmap scan output)
-Nmap done: 1 IP address (1 host up) scanned in 194.46 seconds
--sV -sC again open ports finished.
 
-Running UDP scan: sudo nmap 10.129.223.201 -sU -oN udp-scanStarting Nmap 7.92 ( https://nmap.org ) at 2022-07-11 17:56 CDT
-Nmap scan report for 10.129.223.201
+Nmap done: 1 IP address (1 host up) scanned in 194.36 seconds
+### -sV -sC again open ports finished. ###
+
+### Running scan: sudo nmap 10.129.223.201 -sU -oN udp-scan ###
+Starting Nmap 7.92 ( https://nmap.org ) at 2022-07-12 08:53 CDT
+
 (nmap scan output)
-Nmap done: 1 IP address (1 host up) scanned in 26.06 seconds
-UDP scan finished.```
 
-```console
-./script.sh 10.129.223.201
-Target: 10.129.223.201
-
-Skipping -p- scan.  File ./ping-scan already exists.
-Skipping -sV -sC -p<open ports from ./ping-scan>.  The file ./script-scan already exists.
-Skipping -sU scan.  The file ./udp-scan already exists.```
+Nmap done: 1 IP address (1 host up) scanned in 10.57 seconds
+### UDP scan finished. ###
+```

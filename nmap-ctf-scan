@@ -25,14 +25,14 @@ if [[ -f ./ping-scan ]]
 then
 	if [[ -f ./script-scan ]]
 	then
-		printf "### Skipping -sV -sC -p<open ports from ./ping-scan>.  The file ./script-scan already exists. ###\n"
+		printf "### Skipping -sV and -sC scan against open ports.  The file ./script-scan already exists. ###\n"
 	else
 		script_scan="sudo nmap $1 -p$open_ports -sV -sC -oN script-scan"
 		printf "### Running scan: $script_scan ###\n\n" && $script_scan
 		printf "### -sV -sC scan against open ports finished. ###\n\n"
 	fi
 else
-	printf "### Skipping -sV -sC scan.  ./ping-scan does not exist ###\n"
+	printf "### Skipping -sV -sC scan against open ports.  Unable to determine open ports from the file: ./ping-scan, it does not exist. ###\n"
 fi
 
 # Do UDP scan

@@ -29,7 +29,7 @@ then
 	else
 		script_scan="sudo nmap $1 -p$open_ports -sV -sC -oN script-scan"
 		printf "### Running scan: $script_scan ###\n\n" && $script_scan
-		printf "### -sV -sC again open ports finished. ###\n\n"
+		printf "### -sV -sC scan against open ports finished. ###\n\n"
 	fi
 else
 	printf "### Skipping -sV -sC scan.  ./ping-scan does not exist ###\n"
@@ -41,6 +41,6 @@ then
 	printf "### Skipping -sU scan.  The file ./udp-scan already exists. ###"
 else
 	udp_scan="sudo nmap $1 -sU -oN udp-scan"
-	printf "### Running scan: $udp_scan ###" && $udp_scan
+	printf "### Running scan: $udp_scan ###\n" && $udp_scan
 	printf "### UDP scan finished. ###\n\n"
 fi

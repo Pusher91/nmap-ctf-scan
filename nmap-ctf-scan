@@ -1,11 +1,28 @@
 #!/bin/bash
 
 if [[ -z "$1" ]] ; then
-	printf "Usage: ./script <target>\n"
+	printf "Usage: $0 <target> [options]\n\n"
+	printf "Options:\n"
+	printf -- "-N	bypass ping check\n"
 	exit 1
 fi
 
 printf "### Target: $1 ###\n\n"
+
+if [ "$2" == "-N" ]
+then
+	printf "### -N option specified.  Skipping ping check. ###\n\n"
+else
+	printf "### Pinging target ###\n"
+	
+	if ping -c1 -w1 $1 >/dev/null
+	then
+		printf "### Host is up ###\n\n"
+	else
+		printf "### Host is down.  Exiting.  Use the -N option to skip the ping check. ###\n"
+		exit
+	fi
+fi
 
 # Check if ping-scan exists, if it does not, then do the scan.
 if [[ -f ./ping-scan ]]

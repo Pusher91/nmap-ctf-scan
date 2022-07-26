@@ -9,6 +9,7 @@ fi
 
 printf "### Target: $1 ###\n\n"
 
+# Ping target to determine if it is up or noti before proceeding.  Check for -N flag to skip the ping check.
 if [ "$2" == "-N" ]
 then
 	printf "### -N option specified.  Skipping ping check. ###\n\n"
